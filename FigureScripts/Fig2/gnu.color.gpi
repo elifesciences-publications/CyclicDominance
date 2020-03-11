@@ -1,0 +1,15 @@
+set style line 1 lt 1 lc rgb '#a1584f' #dark gray
+set style line 2 lt 1 lc rgb '#1B9E77' # dark teal
+set style line 3 lt 1 lc rgb '#7570B3' # dark lilac
+set style line 4 lt 1 lc rgb '#E7298A' # dark magenta
+#set style line 5 lt 1 lc rgb '#66A61E' # dark lime green
+set style line 5 lt 1 lc rgb '#4B9C53'
+#set style line 6 lt 1 lc rgb '#A6761D' # dark tan
+set style line 6 lt 1 lc rgb '#BF8B2A' # dark tan
+set style line 7 lt 1 lc rgb '#FF736E' # dark banana
+set style line 8 lt 1 lc rgb '#666666' # dark gray
+set style line 9 lt 1 lc rgb '#a55294'#
+set style line 10 lt 1 lc rgb '#3f738c'
+set style line 11 lt 1 lc rgb '#941100' # dark orange
+set style line 12 lt 1 lc rgb '#275ea8'#
+set style line 13 lt 1 lc rgb '#c07da5' #

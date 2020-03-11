@@ -1,0 +1,64 @@
+set t po eps enh color 25
+set output "fig5.eps"
+set border lw 2
+set tics scale 2 front 
+set size ratio 0.65
+
+
+min = 0.0004
+max = 0.154
+ran = 0.077
+#set xtic rotate by -35 scale 0 
+#set grid y
+set yr [-0.005:0.165]
+set xr [5.8:12.2] 
+set ylab "Fraction {/Symbol \143} in steady-state" offset 2, 0
+set xlab "Average diversity in steady-state"
+set ytics 0.05
+set ytics add ("0.00" 0, "0.05" 0.05, "0.10" 0.1, "0.15" 0.15, "0.20" 0.2) font ",20"
+set xtics 2 
+set mxtics 2
+set mytics 5
+set lmargin 8
+
+x1 = 0.805
+set label 1 "Maximizer\ngenealogy" at screen x1, 0.865 tc rgb "#32A4D2" font ",17"
+set label 2 "Random\nmatrix" at screen  x1, 0.57 tc rgb "#32A4D2" font ",17"
+set label 3 "Minimizer\ngenealogy" at screen x1, 0.28 tc rgb "#32A4D2" font ",17"
+#set key at 10, 0.145 font ",20"
+#set key maxrow 3 box
+set key maxrow 1  box  font ",17"
+#set key out 
+#set key center top
+#set key at screen 0.94, 0.98
+#set key samplen 1.2
+#set key spacing 1.5
+unset key
+
+
+p 'chi_mu1e-05.txt' u ($1==0.01?$2:1/0):8:($2-$3):($2+$3):9:10  w xyerrorbars lw 8 ps 1 pt 5 lc rgb "#005DA3" t ''\
+, 'chi_mu1e-05.txt' u ($1==0.009?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 1 pt 5 lc rgb "#005DA3" t ''\
+, 'chi_mu1e-05.txt' u ($1==0.008?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 1 pt 5 lc rgb "#005DA3" t ''\
+, 'chi_mu1e-05.txt' u ($1==0.007?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 1 pt 5 lc rgb "#005DA3" t ''\
+, 'chi_mu1e-05.txt' u ($1==0.006?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 1 pt 5 lc rgb "#005DA3" t ''\
+, 'chi_mu1e-05.txt' u ($1==0.005?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 1 pt 5 lc rgb "#005DA3" t ''\
+, [:11] max  lc rgb "#32A4D2" dt 3 lw 6 t ''\
+, [:11] min  lc rgb "#32A4D2" dt 3 lw 6 t ''\
+, [:11] ran  lc rgb "#32A4D2" dt 3 lw 6 t ''\
+
+
+quit
+##004476#0433FF
+
+#p 'chi_mu1e-05.txt' u ($1==0.01?$2:1/0):8:($2-$3):($2+$3):9:10  w xyerrorbars lw 8 ps 3 pt 4 lc rgb "#005DA3" t ''\
+#, 'chi_mu1e-05.txt' u ($1==0.009?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 3 pt 6 lc rgb "#005DA3" t ''\
+#, 'chi_mu1e-05.txt' u ($1==0.008?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 3 pt 8 lc rgb "#005DA3" t ''\
+#, 'chi_mu1e-05.txt' u ($1==0.007?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 3 pt 10 lc rgb "#005DA3" t ''\
+#, 'chi_mu1e-05.txt' u ($1==0.006?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 3 pt 12 lc rgb "#005DA3" t ''\
+#, 'chi_mu1e-05.txt' u ($1==0.005?$2:1/0):8:($2-$3):($2+$3):9:10 w xyerrorbars lw 8 ps 3 pt 14 lc rgb "#005DA3" t ''\
+#, 'chi_mu1e-05.txt' u ($1==0.01?$2:1/0):(1/0):($2-$3):($2+$3):9:10  w xyerrorbars lw 5 ps 1.5 pt 4 lc  -1 t '{/Symbol a}=0.010'\
+#, 'chi_mu1e-05.txt' u ($1==0.009?$2:1/0):(1/0):($2-$3):($2+$3):9:10 w xyerrorbars lw 5 ps 1.5 pt 6 lc  -1 t '{/Symbol a}=0.009'\
+#, 'chi_mu1e-05.txt' u ($1==0.008?$2:1/0):(1/0):($2-$3):($2+$3):9:10 w xyerrorbars lw 5 ps 1.5 pt 8 lc  -1 t '{/Symbol a}=0.008'\
+#, 'chi_mu1e-05.txt' u ($1==0.007?$2:1/0):(1/0):($2-$3):($2+$3):9:10 w xyerrorbars lw 5 ps 1.5 pt 10 lc  -1 t '{/Symbol a}=0.007'\
+#, 'chi_mu1e-05.txt' u ($1==0.006?$2:1/0):(1/0):($2-$3):($2+$3):9:10 w xyerrorbars lw 5 ps 1.5 pt 12 lc  -1 t '{/Symbol a}=0.006'\
+#, 'chi_mu1e-05.txt' u ($1==0.005?$2:1/0):(1/0):($2-$3):($2+$3):9:10 w xyerrorbars lw 5 ps 1.5 pt 14 lc  -1 t '{/Symbol a}=0.005'\

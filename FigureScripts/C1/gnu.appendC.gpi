@@ -1,0 +1,69 @@
+set t po eps enh color 30
+set output 'appendC1.eps'
+set size 2,2
+set multiplot
+
+set style line 1 lt 1 lc rgb '#D08D64' 
+set style line 2 lt 1 lc rgb '#7784AC' 
+set style line 3 lt 1 lc rgb '#93A680' 
+
+####(a)
+set border lw 3
+set size 1,1
+set ylabel offset 2, 0
+set origin 0,1
+set yr[:0.85]
+set ylab 'Link frequencies'
+set xlab 'Time t'
+set xtics 250
+set ytics 0.25
+set xr[9500:]
+p './links_l0_mu1e-05_d0.005.txt' u 1:($5/($5+$6+$7))  w l ls 1 lw 18  t 'dominance'\
+, '' u 1:($6/($5+$6+$7))  w l ls 2 lw 18 t 'bistability'\
+, '' u 1:($7/($5+$6+$7))  w l ls 3 lw 18 t 'coexistence'\
+, 0.25 w l lw 7 dt 3 lc rgb "#444444" notitle , 0.5  w l lw 7 dt 3 lc rgb "#444444" notitle
+
+####(b)
+set size 1,1
+set origin 1,1
+unset key
+p './links_l0_mu1e-05_d0.5.txt' u 1:($5/($5+$6+$7)) w l ls 1 lw 11  t 'dominance'\
+, '' u 1:($6/($5+$6+$7)) w l ls 2 lw 11 t 'bistability'\
+, '' u 1:($7/($5+$6+$7)) w l ls 3 lw 11 t 'coexistence'\
+, 0.25 w l lw 7 dt 3 lc rgb "#444444" notitle , 0.5  w l lw 7 dt 3 lc rgb "#444444" notitle
+
+####(c) 
+reset
+set tmargin 4 
+set rmargin 2
+set style line 1 lt 1 lc rgb '#D08D64' 
+set style line 2 lt 1 lc rgb '#7784AC' 
+set style line 3 lt 1 lc rgb '#93A680' 
+set size 2,1
+set origin 0.05,0 
+x = 0.01
+y = 0.93
+#set label 1 '(a)' at screen x, y+1 font ",40"
+#set label 2 '(b)' at screen x+1, y+1 font ",40"
+#set label 3 '(c)' at screen x, y font ",40"
+
+set border lw 3
+set xlab 'Baseline death rate {/Symbol a}'
+
+
+
+unset ytics
+set grid y
+set border 3
+set style data histograms
+set style histogram rowstacked
+set style fill solid border -1
+set ylab 'Link frequencies'
+set boxwidth 0.75
+unset key
+#set xlab font ", 25"
+#set key invert reverse Left outside
+
+p 'links.txt' u 2:xtic(1) ls 1 t 'dominance'\
+	  , '' u 3:xtic(1)  ls 2 t 'bistability'\
+	  , '' u 4:xtic(1)  ls 3 t 'coexistence'

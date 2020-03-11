@@ -1,0 +1,105 @@
+set t po eps enh color 30
+set output 'appendB.eps'
+set size 2,2
+set multiplot
+
+###### (a)
+reset
+x = 0.18
+y = 0.9
+#set label 1 '(a)' at screen x, y+1
+#set label 2 '(b)' at screen x+1.025 ,y+1 
+#set label 3 '(c)' at screen x+0.025 ,y
+#set label 4 '(d)' at screen x+1.025 ,y 
+
+
+set border lw 5
+set tics scale 3 front
+set ylab "Average Pop. size {/Symbol \341}N{/Symbol \361} (x10^4)" 
+set xlab 'Time t (10x^3)'
+set size 1,1
+set origin 0,1
+set yr[:100000]
+set ytic ("10" 100000, "5" 50000, "0" 0 )
+set xtic ("10" 10000, "8" 8000, "6" 6000, "4" 4000, "2" 2000, "0" 0 )
+set key font ",25" 
+set key at 9400, 95000
+p './l0_mu1e-05_d0.005_tmax10000.txt' u 1:4 w l lw 9  t '{/Symbol a}=0.005'\
+, './l0_mu1e-05_d0.01_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=0.01'\
+, './l0_mu1e-05_d0.05_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=0.05'\
+, './l0_mu1e-05_d0.1_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=0.1' \
+, './l0_mu1e-05_d0.5_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=0.5' \
+
+###########(b)
+reset
+unset key
+set tics scale 3 front
+set border lw 5 
+set ylab "Average diversity {/Symbol \341}s{/Symbol \361}" 
+set xlab 'Time t (10x^3)'
+set size 1,1
+set origin 1,1
+set yr[:12]
+set xtic ("10" 10000, "8" 8000, "6" 6000, "4" 4000, "2" 2000, "0" 0 )
+set ytic 4 
+set ytic (1, 2,3, 4, 8, 12)
+#set key font ",25" at 9600, 10.5
+p './l0_mu1e-05_d0.005_tmax10000.txt' u 1:8 w l lw 9  t '{/Symbol a}=0.005'\
+, './l0_mu1e-05_d0.01_tmax10000.txt'  u 1:8 w l lw 9  t '{/Symbol a}=0.01'\
+, './l0_mu1e-05_d0.05_tmax10000.txt'  u 1:8 w l lw 9  t '{/Symbol a}=0.05'\
+, './l0_mu1e-05_d0.1_tmax10000.txt'   u 1:8 w l lw 9  t '{/Symbol a}=0.1' \
+, './l0_mu1e-05_d0.5_tmax10000.txt'   u 1:8 w l lw 9  t '{/Symbol a}=0.5' \
+###########(c)
+reset
+set border lw 5 
+set tics scale 3 front
+set xr [0:100000]
+set ylab "Average diversity {/Symbol \341}s{/Symbol \361}" 
+set xlab "Average Pop. size {/Symbol \341}N{/Symbol \361} (x10^4)" 
+set xtic ("10" 100000, "8" 80000, "6" 60000, "4" 40000, "2" 20000, "0" 0 )
+set ytics (1, 2, 3, 4, 8, 12)
+set yr[1:12]
+set size 1,1
+set origin 0,0
+p './l0_mu1e-05_t10000.txt' u 2:3 w lp ps 3 pt 7 lw 9 lc rgb "#777777" t ''\
+
+##### (d)
+reset
+set border lw 5
+set tics scale 3 front
+set xr[0:10000]
+set xlab 'Time t (x10^3)'
+set ylab "Average payoffs {/Symbol \341}A_{ij}{/Symbol \361}" 
+set xtic ("10" 10000, "8" 8000, "6" 6000, "4" 4000, "2" 2000, "0" 0 )
+set size 1,1
+set origin 1,0
+#set key l b font ",20"
+unset key 
+
+set ytic 4 font ",25"
+p './avgp_l0_mu1e-05_d0.005.txt' u 1:2 w l lw 9  t '{/Symbol a}=0.005'\
+, './avgp_l0_mu1e-05_d0.01.txt'  u 1:2 w l lw 9  t '{/Symbol a}=0.01'\
+, './avgp_l0_mu1e-05_d0.05.txt'  u 1:2 w l lw 9  t '{/Symbol a}=0.05'\
+, './avgp_l0_mu1e-05_d0.1.txt'   u 1:2 w l lw 9  t '{/Symbol a}=0.1' \
+, './avgp_l0_mu1e-05_d0.5.txt'   u 1:2 w l lw 9  t '{/Symbol a}=0.5' \
+
+reset
+set border lw 3
+set size 0.47, 0.47
+set tic scale 1.5
+set origin 1.48, 0.26
+set ytics 4 font ",15"
+set xtics font ",15"
+set offset 10, 0
+set format x "10^{%L}"
+unset xlab
+unset ylab
+unset key
+set log x
+rep
+
+
+
+reset 
+unset multiplot
+quit
