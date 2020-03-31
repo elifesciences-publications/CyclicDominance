@@ -12,7 +12,7 @@ import fnmatch
 import sys
 
 def CountFile(dirpath, d):
-	name = "M1000_mu%g_w1_d%g_maxt%d_*.d" % (mu, d, tmax) 
+	name = "M1000_mu%g_d%g_maxt%d_*.d" % (mu, d, tmax) 
 	return fnmatch.filter(os.listdir(dirpath), name)
 
 
@@ -95,11 +95,11 @@ def ReadData(fname):
 
 
 """ -------- main ---------- """
-dlist = [0.05, 0.025,  0.01, 0.0075, 0.005] 
+#dlist = [0.05, 0.025,  0.01, 0.0075, 0.005] 
+dlist = [0.005] 
 tmax = 10000
 mu = 1e-05
-l = 0
-dir = "l%g" % l
+dir = "../Data"
 #rec = 500
 rec = tmax
 t0 = tmax - rec
@@ -136,7 +136,7 @@ for d in dlist:
 	sur_pdia /= Nsur; 
 	sur_poffdia /= Nsur; 
 
-	ofp = open("data/avgp_l%g_mu%g_d%g.txt" % (l, mu, d), 'w')	
+	ofp = open("../Res/avgp_mu%g_d%g.txt" % (mu, d), 'w')	
 	ofp.write("#time Ntotal=%d Nsur=%d all average payoffs of all elements, only diagonal, only non-diagonal, sur sampled payoffs \n" % (Nf, Nsur))
 	for i in range(rec):
 		ofp.write("%d %g %g %g %g %g %g\n" % (t0+i, all_p[i], all_pdia[i], all_poffdia[i], sur_p[i], sur_pdia[i], sur_poffdia[i]))

@@ -7,10 +7,6 @@ set multiplot
 reset
 x = 0.18
 y = 0.9
-#set label 1 '(a)' at screen x, y+1
-#set label 2 '(b)' at screen x+1.025 ,y+1 
-#set label 3 '(c)' at screen x+0.025 ,y
-#set label 4 '(d)' at screen x+1.025 ,y 
 
 
 set border lw 5
@@ -24,11 +20,11 @@ set ytic ("10" 100000, "5" 50000, "0" 0 )
 set xtic ("10" 10000, "8" 8000, "6" 6000, "4" 4000, "2" 2000, "0" 0 )
 set key font ",25" 
 set key at 9400, 95000
-p './l0_mu1e-05_d0.005_tmax10000.txt' u 1:4 w l lw 9  t '{/Symbol a}=0.005'\
-, './l0_mu1e-05_d0.01_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=0.01'\
-, './l0_mu1e-05_d0.05_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=0.05'\
-, './l0_mu1e-05_d0.1_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=0.1' \
-, './l0_mu1e-05_d0.5_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=0.5' \
+p './mu1e-05_d0.005_tmax10000.txt' u 1:4 w l lw 9  t '{/Symbol a}=0.005'\
+, './mu1e-05_d0.01_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=0.01'\
+, './mu1e-05_d0.05_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=0.05'\
+, './mu1e-05_d0.1_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=0.1' \
+, './mu1e-05_d0.5_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=0.5' \
 
 ###########(b)
 reset
@@ -43,12 +39,11 @@ set yr[:12]
 set xtic ("10" 10000, "8" 8000, "6" 6000, "4" 4000, "2" 2000, "0" 0 )
 set ytic 4 
 set ytic (1, 2,3, 4, 8, 12)
-#set key font ",25" at 9600, 10.5
-p './l0_mu1e-05_d0.005_tmax10000.txt' u 1:8 w l lw 9  t '{/Symbol a}=0.005'\
-, './l0_mu1e-05_d0.01_tmax10000.txt'  u 1:8 w l lw 9  t '{/Symbol a}=0.01'\
-, './l0_mu1e-05_d0.05_tmax10000.txt'  u 1:8 w l lw 9  t '{/Symbol a}=0.05'\
-, './l0_mu1e-05_d0.1_tmax10000.txt'   u 1:8 w l lw 9  t '{/Symbol a}=0.1' \
-, './l0_mu1e-05_d0.5_tmax10000.txt'   u 1:8 w l lw 9  t '{/Symbol a}=0.5' \
+p './mu1e-05_d0.005_tmax10000.txt' u 1:8 w l lw 9  t '{/Symbol a}=0.005'\
+, './mu1e-05_d0.01_tmax10000.txt'  u 1:8 w l lw 9  t '{/Symbol a}=0.01'\
+, './mu1e-05_d0.05_tmax10000.txt'  u 1:8 w l lw 9  t '{/Symbol a}=0.05'\
+, './mu1e-05_d0.1_tmax10000.txt'   u 1:8 w l lw 9  t '{/Symbol a}=0.1' \
+, './mu1e-05_d0.5_tmax10000.txt'   u 1:8 w l lw 9  t '{/Symbol a}=0.5' \
 ###########(c)
 reset
 set border lw 5 
@@ -61,7 +56,7 @@ set ytics (1, 2, 3, 4, 8, 12)
 set yr[1:12]
 set size 1,1
 set origin 0,0
-p './l0_mu1e-05_t10000.txt' u 2:3 w lp ps 3 pt 7 lw 9 lc rgb "#777777" t ''\
+p './mu1e-05_t10000.txt' u 2:3 w lp ps 3 pt 7 lw 9 lc rgb "#777777" t ''\
 
 ##### (d)
 reset
@@ -73,15 +68,14 @@ set ylab "Average payoffs {/Symbol \341}A_{ij}{/Symbol \361}"
 set xtic ("10" 10000, "8" 8000, "6" 6000, "4" 4000, "2" 2000, "0" 0 )
 set size 1,1
 set origin 1,0
-#set key l b font ",20"
 unset key 
 
 set ytic 4 font ",25"
-p './avgp_l0_mu1e-05_d0.005.txt' u 1:2 w l lw 9  t '{/Symbol a}=0.005'\
-, './avgp_l0_mu1e-05_d0.01.txt'  u 1:2 w l lw 9  t '{/Symbol a}=0.01'\
-, './avgp_l0_mu1e-05_d0.05.txt'  u 1:2 w l lw 9  t '{/Symbol a}=0.05'\
-, './avgp_l0_mu1e-05_d0.1.txt'   u 1:2 w l lw 9  t '{/Symbol a}=0.1' \
-, './avgp_l0_mu1e-05_d0.5.txt'   u 1:2 w l lw 9  t '{/Symbol a}=0.5' \
+p './avgp_mu1e-05_d0.005.txt' u 1:2 w l lw 9  t '{/Symbol a}=0.005'\
+, './avgp_mu1e-05_d0.01.txt'  u 1:2 w l lw 9  t '{/Symbol a}=0.01'\
+, './avgp_mu1e-05_d0.05.txt'  u 1:2 w l lw 9  t '{/Symbol a}=0.05'\
+, './avgp_mu1e-05_d0.1.txt'   u 1:2 w l lw 9  t '{/Symbol a}=0.1' \
+, './avgp_mu1e-05_d0.5.txt'   u 1:2 w l lw 9  t '{/Symbol a}=0.5' \
 
 reset
 set border lw 3

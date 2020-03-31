@@ -1,8 +1,5 @@
 #-*-encoding:utf-8 -*-
 ################################################################
-# 2019-01-18: averaging distributions of links												   #
-# output file: average payoffs of all elements fraction of dominance, coordination, coexistence
-################################################################
 
 
 """ ------------- functions ----------- """
@@ -43,6 +40,5 @@ for l in lines:
 mc15 = np.array(mc15)
 Dc15 = np.array(Dc15)
 print  15, np.mean(mc15), np.std(mc15), np.mean(Dc15), np.std(Dc15)
-#c15 = np.random.shuffle(c15)
 
 

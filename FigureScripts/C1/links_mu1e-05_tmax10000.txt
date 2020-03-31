@@ -1,4 +1,0 @@
-#d all averaged fraction of links (dominance, coordination, coexistence) surviving averaged one for three (dominance, coordination, coexistence)
-0.5 0.034294 0.015912 0.0180243 0.0349582 0.0162202 0.0183734
-0.1 0.171181 0.0745941 0.112326 0.17471 0.0761319 0.114642
-0.05 0.276018 0.108216 0.262896 0.281651 0.110424 0.268261

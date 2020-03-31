@@ -12,7 +12,7 @@ import fnmatch
 import sys
 
 def CountFile(dirpath, d):
-	name = "M1000_mu%g_w1_d%g_maxt%d_*.d" % (mu, d, tmax) 
+	name = "M1000_mu%g_d%g_maxt%d_*.d" % (mu, d, tmax) 
 	return fnmatch.filter(os.listdir(dirpath), name)
 
 
@@ -53,12 +53,10 @@ def sum_partial(vector, begin, end):
 
 """ -------- main ---------- """
 mu = 1e-05
-#tmax = 10000
+tmax = 10000
 #dlist = [0.05, 0.025,  0.01, 0.0075, 0.005] 
-tmax = 20000
 dlist = [0.005] 
-l=0
-dir = "l%g" % l
+dir = "../Data" 
 Data = {}
 
 #get the average values in time at a given d and mu value
@@ -77,6 +75,8 @@ for d in dlist:
 		n[0] += tempn
 		K[1] += tempK*tempK
 		n[1] += tempn*tempn
+		print tempK[1], K[0][1], Nf
+
 		if flag==0:
 			K[2] += tempK
 			K[3] += tempK*tempK
@@ -84,10 +84,9 @@ for d in dlist:
 			n[3] += tempn*tempn
 			Nsur += 1
 
-
 	#--------- calculate avg and std ------------#
 	K[0] /= Nf; K[1] /= Nf; 
-	Kg[1] -= K[0]*K[0]
+	K[1] -= K[0]*K[0]
 	K[1] = np.sqrt(K[1]/Nf)
 	n[0] /= Nf; n[1] /= Nf; 
 	n[1] -= n[0]*n[0]
@@ -101,7 +100,7 @@ for d in dlist:
 	n[3] = np.sqrt(n[3]/Nsur)
 
 	#--------- write ---------------#
-	ofp = open("data/l%g_mu%g_d%g_tmax%d.txt" % (l, mu, d, tmax), 'w')	
+	ofp = open("../Res/mu%g_d%g_tmax%d.txt" % ( mu, d, tmax), 'w')	
 	ofp.write("#t with Nf=%d Nsur=%d K_all std K_sur std n_all std n_sur std\n" % (Nf, Nsur))
 	for i in range(tmax+1):
 		ofp.write("%d " % i )
@@ -117,7 +116,7 @@ for d in dlist:
 	
 	
 	
-ofp = open("data/nN_mu%g_tmax%d.txt" % (mu, tmax), 'w')
+ofp = open("../Res/nN_mu%g_tmax%d.txt" % (mu, tmax), 'w')
 ofp.write("#d avgK surK avgn surn\n")
 for d in dlist:
 	ofp.write("%g %g %g %g %g\n" % (d, Data[d][0], Data[d][1], Data[d][2], Data[d][3]))

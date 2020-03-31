@@ -21,105 +21,42 @@ default_random_engine generator(ran());
 //######################### structures ##############################
 struct Pop {
 	//for the system
-	int n; //# of types
-	int* x; //abundance vector
-	double** P; //P[i][j] means the payoff of i type with an j type opponent
-	double** rates; //exp(-w*P[i][j])
-	double mu; //mutation rate per capita
-	int M; //typical population size
-	int ns;//maximum # of types at the same time
-	int id;//total number of types including extincted types; id of the first residence is id=0
+	int n; 			//# of current types
+	int* x; 		//abundance vector
+	double** P; 	//P[i][j] means the payoff of i type with an j type opponent
+	double** rates; //competition death rates
+	double mu; 		//mutation rate per capita
+	int M; 			//population size scale
+	int ns;			//maximum # of types at the same time
+	int id;			//ID for all types including extincted types; id of the first residence is id=0
 
 	//for birth and death rates
-	double rd; //death rate
-	double rb; //birth rate
-	double r; //r=rb-rd
+	double rd; 		//death rate
+	double rb; 		//birth rate
+	double r; 		//r=rb-rd
 
 	//for dynamics and parameters
-	double tot; //Total number of accessible states
-	int choice; //reaction idx which will occur
-	long double t; //real time
-	int maxt; //unit of mutant (generations); is the same with maximum number of id
-	double base_d;
-	int intmax;
+	double tot; 	//Total number of accessible states
+	int choice; 	//reaction idx which will occur
+	long double t; 	//real time
+	int maxt; 		//maximum time to simulate
+	double base_d;	//baseline competition death rate
+	int intmax;		//maximum value of integer (for debugging)
 
 	//for tree
-	int* seq;//species index starts from zero 
-	int* mother;
+	int* seq;		//array for indexing of survived types
+	int* mother;	//saving the parental type
 
 	//for writting
-	int fidx;
-	vector<long double> tempt;
-	vector<int> tempn;
-	vector<int> tempN;
-	vector< vector<int> > tempx;
-	vector<int> vecx;//including type id: x_1 x_2 ... id_1 id_2 ...
-	vector< vector<double> > Payoffs;
-	vector<double> vecP;
+	int fidx;		//file index
+	vector<long double> tempt;	//saving the real time
+	vector<int> tempn;			//saving the # of types in time
+	vector<int> tempN;			//saving the population size in time
+	vector< vector<int> > tempx;	//saving the array of abundances in time
+	vector<int> vecx;				//saving the array of abundances 
+	vector< vector<double> > Payoffs;	//saving the array of pyaoffs in time
+	vector<double> vecP;				//saving the array of payoffs
 };
-
-//######################### non-core functions ##############################
-int Count_row(char* fname)
-{
-	int N = 0;
-	ifstream in(fname);
-	string unused;
-	string s;
-	while ( getline(in, unused) )	{
-		if(N==1) { s=unused;	}
-		++N;
-	}
-	return N;
-}
-
-//0: Dominance of mutant, 1: Coexistence, 2: Coordination, 3: Dominance of residence
-int gametype(Pop &sys)
-{
-	int game;
-	if(sys.P[0][0] < sys.P[1][0])
-	{
-		if(sys.P[1][1] < sys.P[0][1])
-		{
-			game = 1;
-		}
-		else
-		{
-			game = 0;
-		}
-	}
-	else
-	{
-		if(sys.P[1][1] < sys.P[0][1])
-		{
-			game = 3;
-		}
-		else
-		{
-			game = 2;
-		}
-	}
-	return game;
-}
-
-void showx(Pop &sys) {
-  cout << "t=" << sys.t << ": ";
-  for (int i=0; i<sys.n; i++) {
-    cout << sys.x[i] << " ";
-  }
-  cout << endl;
-}
-
-
-void showP(Pop &sys) {
-  cout << "n=" << sys.n << endl;
-  for (int i=0; i<sys.n; i++) {
-  	for (int j=0; j<sys.n; j++) {
-    cout << sys.P[i][j] << " ";
-	}	
-	cout << endl;
-  }
-}
-
 
 //#######################################################################
 //######################### core functions ##############################
@@ -155,6 +92,7 @@ void init(Pop &sys, int M, double mu, int maxt, int fidx, double base_d) {
 	sys.seq = (int*)calloc(sys.ns, sizeof(int));
 }
 
+//initialize a configuration
 void init_conf(Pop &sys) {
 	sys.n = 1;
 	sys.id = 0;
@@ -177,8 +115,7 @@ void init_conf(Pop &sys) {
 }
 
 //######################### payoff sampling: mutation process ##############################
-int sampling_payoffs(Pop &sys, int mom) {
-
+void sampling_payoffs(Pop &sys, int mom) {
 	//payoff sampling 
 	for(int i=0; i<sys.n; i++) {
 		sys.P[sys.n][i] = Gdist(generator);
@@ -187,9 +124,7 @@ int sampling_payoffs(Pop &sys, int mom) {
 		sys.P[i][sys.n] += sys.P[i][mom];
 	}
 	sys.P[sys.n][sys.n] = Gdist(generator) + sys.P[mom][mom];
-	//sys.P[sys.n][sys.n] = sys.P[mom][mom];
 
-	//cout << sys.id << endl;
 	//calculate rates
 	for(int i=0; i<sys.n+1; i++) 	{
 		for(int j=0; j<sys.n+1; j++) 	{
@@ -197,17 +132,15 @@ int sampling_payoffs(Pop &sys, int mom) {
 			//cout << i << " " << j << " " << sys.P[i][j] << " " << sys.rates[i][j] << " " << endl;
 		}
 	}
-
-	return gametype(sys);
 }
 
-
+//recoding the results at a given time
 void record_mut(Pop &sys){
-	int N=0;
-	//double Pop;
-	
-	//push {x_i} and {id}
+	//save the real time
 	sys.tempt.push_back(sys.t);
+
+	//save abudnaces and indeces of types
+	int N=0;
 	for(int i=0; i<sys.n; i++) {
 		sys.vecx.push_back(sys.x[i]);
 		N += sys.x[i];
@@ -215,12 +148,14 @@ void record_mut(Pop &sys){
 	for(int i=0; i<sys.n; i++) {
 		sys.vecx.push_back(sys.seq[i]);
 	}
-	sys.tempN.push_back(N);
 	sys.tempx.push_back(sys.vecx);
 	sys.vecx.erase(sys.vecx.begin(), sys.vecx.end());
+	
+	//save the population size and # of types
+	sys.tempN.push_back(N);
 	sys.tempn.push_back(sys.n);
 	
-	//payoffs {p_ij}
+	//save payoffs
 	for(int i=0; i<sys.n; i++){
 		for(int j=0; j<sys.n; j++) { 
 			sys.vecP.push_back(sys.P[i][j]);
@@ -232,9 +167,13 @@ void record_mut(Pop &sys){
 
 
 void mutate(Pop &sys, int mom) {
-	//pick the new payoffs
-	int game = sampling_payoffs(sys, mom);
+	//pick new payoffs
+	sampling_payoffs(sys, mom);
+
+	//record the current population composition
 	record_mut(sys);
+
+	//update configuration
 	sys.id++;
 	sys.seq[sys.n] = sys.id;
 	sys.mother[sys.id] = sys.seq[mom];
@@ -277,8 +216,8 @@ void extinction(Pop &sys, int die) {
 
 //######################### update: Gillespie algorithm ##############################
 void choose_n(Pop &sys) {
-	int N = (sys.n+2)*sys.n;
-	double* TNAS = (double*)calloc(N, sizeof(double));
+	int N = (sys.n+2)*sys.n; 							//# of possible reactions
+	double* TNAS = (double*)calloc(N, sizeof(double));	//probabilit array to happen each reaction
 	int idx=0;
 	double tot=0;
 
@@ -310,7 +249,7 @@ void choose_n(Pop &sys) {
 		}
 	}
 
-	//find reaction rule
+	//find reaction rule to happen
 	int choice=-1;
 	double target = drnd()*tot;
 	if(target < TNAS[0]) 	{
@@ -327,7 +266,7 @@ void choose_n(Pop &sys) {
 	sys.tot = tot;
 	sys.choice = choice;
 
-	if(choice==-1){cout<< "something wring in choice: tot=" << tot << endl; showx(sys); exit(1);}
+	if(choice==-1){cout<< "something wring in choice: tot=" << tot << endl; exit(1);}
 	free(TNAS);
 }
 
@@ -345,7 +284,7 @@ void update(Pop &sys) {
 	}
 	//death: choice \in [n:2n-1]
 	else if(sys.choice < 2*sys.n) {
-		sys.choice -= sys.n; //choice \in [0:n-1]
+		sys.choice -= sys.n; //shift choice to \in [0:n-1]
 		sys.x[sys.choice] -= 1;
 		if(sys.x[sys.choice] == 0) {
 			extinction(sys, sys.choice);
@@ -353,10 +292,9 @@ void update(Pop &sys) {
 	}
 	//death from competition: choice \in [2n:n*n+2n-1]
 	else {
-		sys.choice -= 2*sys.n; //choice \in [0:n*n-1]
+		sys.choice -= 2*sys.n; //shift choice to \in [0:n*n-1]
 		i = sys.choice%sys.n;
 		j = (sys.choice - i)/sys.n;
-		//cout << sys.rates[i][j] << endl;
 
 		sys.x[i] -= 1;
 		if(sys.x[i] == 0) {
@@ -364,7 +302,7 @@ void update(Pop &sys) {
 		}
 	}
 
-	//update t
+	//update real time
 	sys.t += -log(drnd())/sys.tot;
 }
 
@@ -378,21 +316,24 @@ void write_conf(Pop &sys) {
 	int n;
 	char fname[200];
 	FILE *fp;
-	sprintf(fname, "data/M%d_mu%g_d%g_maxt%d_%d.d", sys.M, sys.mu, sys.base_d, sys.maxt-1, sys.fidx);
+	sprintf(fname, "Data/M%d_mu%g_d%g_maxt%d_%d.d", sys.M, sys.mu, sys.base_d, sys.maxt-1, sys.fidx);
 
 	//write
 	ofstream ofp(fname);
 	for(int i=0; i<sys.id; i++)
 	{
+		//writing time, realtime, population size, # of types
 		ofp << i << "\t" << sys.tempt[i]<< "\t" << sys.tempN[i] << "\t" << sys.tempn[i] << "\t";
 		
-		//print x[i] and P[i][j]
+		//adjust n to write other infromation
 		n = sys.tempn[i];
 		if(n==0) {n = 1;}
 
+		//writing abundances and its type index
 		for(int l=0; l<2*n; l++) {
 			ofp << sys.tempx[i][l] << "\t";
 		}
+		//writing payoffs
 		for(int l=0; l<n*n; l++) {
 			ofp << sys.Payoffs[i][l] << "\t";
 		}
@@ -400,7 +341,7 @@ void write_conf(Pop &sys) {
 	}
 
 	//write tree
-	sprintf(fname, "data/tree_M%d_mu%g_d%g_maxt%d_%d.d", sys.M, sys.mu, sys.base_d, sys.maxt-1, sys.fidx);
+	sprintf(fname, "Data/tree_M%d_mu%g_d%g_maxt%d_%d.d", sys.M, sys.mu, sys.base_d, sys.maxt-1, sys.fidx);
 	ofstream tree(fname);
 	for(int i=1; i<sys.id; i++)
 	{

@@ -1,2 +1,0 @@
-#name of the model chi
-"Random matrix" 0.077

@@ -23,26 +23,6 @@ set key font ",25"
 p 'cdf_t15_t9500_t10000.txt' u 1:3 ls 1  lw 6  pt 1 ps 2.5 t 'Non-cyclic', 'cdf_t14_t9500_t10000.txt' u 1:3 ls 2 lw 6 pt 2 ps 2.5  t 'Cyclic'
 
 
-
-########i#inset
-#unset log xy
-#set size 0.44, 0.4
-#set origin 0.25, 0.21
-#set yr[0.15:1.35]
-#set xr[0:25]
-#set border lw 1.7
-#set tics scale 1
-#set xlab 'Average lifespan' font ",30" offset 0, 1.4
-#unset ylab
-#unset format x
-#set xtics 5 font ",25" offset 0, 0.6
-#unset ytics
-#p 'triad_life_span_d0.005_steady.txt' u 2:($1==15?($1-14):1./0):4:5 w xerrorbars ls 1 lw 7 ps 3 t ''\
-#, 'triad_life_span_d0.005_steady.txt' u 2:($1==14?($1-13.5):1./0):4:5 w xerrorbars ls 2 lw 7 ps 3 t ''\
-#, 'triad_life_span_d0.005_steady.txt' u 2:($1==15?($1-14):1./0)  ls 1 lw 15 ps 3 t ''\
-#, 'triad_life_span_d0.005_steady.txt' u 2:($1==14?($1-13.5):1./0)  ls 2 lw 15 ps 3 t ''\
-
-
 ###Panel B
 reset
 set border lw 3

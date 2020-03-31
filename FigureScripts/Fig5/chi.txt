@@ -1,4 +1,0 @@
-#name of the model chi
-"Evolving matrix"  0.04171425275357047
-#"Evolving matrix\n(minimizer)" 0.0004
-#"Evolving matrix\n(maximizer)" 0.154
