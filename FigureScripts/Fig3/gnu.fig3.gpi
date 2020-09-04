@@ -16,33 +16,14 @@ set xr[:2500]
 unset xlab 
 set xtics 500 format ""
 set size ratio 0.6
-#set arrow 1 from 26.5, 1e-05 to 26.5, 0.1 nohead lc rgb "red" dt 3 front
-#set arrow 2 from 72.5, 1e-05 to 72.5, 0.1 nohead lc rgb "red" dt 3 front
 g(x) = x<=27? 1:-1
 h(x) = x<=73? 1:-1
 p 'ts_d0.005_mu1e-05.txt' u 1:($5<1e-08?1/0:$5):6 w errorbars lw 2 lc rgb "#FFBD33" t 'non-cyclic'\
 , 'ts_d0.005_mu1e-05.txt' u 1:($3<1e-08?1/0:$3):4 w errorbars lw 2 lc rgb "#33FFBD" t 'cyclic'\
-#p h(x) w filledcurves x1 lc rgb "#EAEAEA" t ''\
-#, g(x) w filledcurves x1 lc rgb "#C0C0C0" t ''\
-#what we observe in 1<<S><2 region, I found one for M1000_mu1e-05_w1_d0.005_maxt10000_665.d t=17 n=6 t14=1.0 t15=3.0, 
-#and the otehr is M1000_mu1e-05_w1_d0.005_maxt10000_690.d t=18 n=5 t14=1.0 t15=0.0
-
-#inset
-#set origin 0.21, 0.123
-#set size 0.42, 0.37
-#set xr[:130]
-#unset ytics
-#unset ylab
-#unset xlab
-#set arrow 1 from 26.5, 1e-05 to 26.5, 0.25 nohead lc rgb "#777777" dt 3 front
-#set arrow 2 from 72.5, 1e-05 to 72.5, 0.25 nohead lc rgb "#777777" dt 3 front
-#set border lw 1.5
-#set xtic ("0" 0, "" 50, "100" 100, "" 150 ) font ",15" offset 0, 0.63
-#set ytics format " "
-#rep
 
 
 
+####################
 set xlab "Time" font ",28" offset 0, 0.3
 set xtic 500 font ",28" format "%g"
 unset log
@@ -58,11 +39,9 @@ set ytics add ("0.00" 0, "0.02" 0.02, 0.04, 0.06, "" 0.08) font ",25"
 set mytics 2
 
 p 'ts_d0.005_mu1e-05.txt' u 1:($7) w l lw 6 lc rgb "#32A4F2" t ''\
-#p 'ts_d0.005_mu1e-05.txt' u 1:($7):(($3-$4)/($3-$4+$5+$6)):(($3+$4)/($3+$4+$5-$6)) w errorbars lw 2 lc rgb "#32A4F2" t ''\
 
 
 
-####################3
 ####################
 set output 'fig3A.eps'
 set size ratio 0.5
@@ -74,19 +53,29 @@ set ylab "Average values" offset -0.8, 0
 set yr [0:11]
 set ytic 2
 set mytics 2
+<<<<<<< HEAD
 #set arrow 1 from 100, 0 to 100, 11 nohead dt 3 lc -1
 #set arrow 2 from 600, 0 to 600, 11 nohead dt 3 lc -1 front
 set label 1 "Diversity {/Symbol \341}n{/Symbol \361}" at 200, 10 font ",25" tc rgb "#999999" 
 set label 2 "Population size {/Symbol \341}N{/Symbol \361} (x10^4)" at 1000, 8  font ",25" tc rgb "#404040"
+=======
+set label 1 "Diversity {/Symbol \341}S{/Symbol \361}" at 200, 10 font ",25" tc rgb "#797979" 
+set label 2 "Population size {/Symbol \341}N{/Symbol \361} (x10^4)" at 1000, 8  font ",25" tc rgb "#464C63"
+>>>>>>> c66818bc3794729c65364c8176efb6f1bc46034c
 set lmargin 8
 set rmargin 3
 #set y2lab '
 hist(x) = (100<x&& x<607)?11:1/0
 
+<<<<<<< HEAD
 p './l0_mu1e-05_d0.005_tmax10000.txt' u 1:8 w l lw 8 lc rgb "#999999" t ''\
 , './l0_mu1e-05_d0.005_tmax10000.txt' u 1:($4/10000) w l lw 8 lc rgb "#404040" t ''\
 #, 3 t '' lt -1 dt 3 
 #p './l0_mu1e-05_d0.005_tmax10000.txt' u 1:8:9 w errorbars lw 2 lc rgb "#797979" t ''\
 #, './l0_mu1e-05_d0.005_tmax10000.txt' u 1:($4/10000):($5/10000) w errorbars lw 2 lc rgb "#464C63" t ''\
 #p hist(x) w filledcurves x1 lc rgb "#EAEAEA" t ''\
+=======
+p './mu1e-05_d0.005_tmax10000.txt' u 1:8 w l lw 8 lc rgb "#797979" t ''\
+, './mu1e-05_d0.005_tmax10000.txt' u 1:($4/10000) w l lw 8 lc rgb "#464C63" t ''\
+>>>>>>> c66818bc3794729c65364c8176efb6f1bc46034c
 
