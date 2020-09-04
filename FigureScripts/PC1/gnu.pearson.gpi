@@ -1,0 +1,46 @@
+set t po eps enh color 30
+set output 'hist_pearson1.eps'
+set size 3, 2
+set multiplot
+
+min=-1.
+max=1.
+
+n=40
+width = (max-min)/n 
+set boxwidth width 
+bin(x) = width*(floor((x-min)/width)+0.5) + min 
+set xr[min:max+width]
+set border lw 2
+
+set ytics 0.1 
+set xlab 'Correlation with diversity' 
+set ylab 'PDF' offset 2,0
+set xr[-1:1]
+set xtics 0.5
+set key samplen 1.5 
+set yr[:0.32]
+set size 1,1
+set origin 0,1
+p 'data/Pearson1_d0.005_tmax10000.txt' u (bin($4)):(1.0/1944) smooth freq w boxes fill transparent pattern 7  lc rgb "#FFBD33" lw 9 t 'Non-cyclic'\
+, 'data/Pearson1_d0.005_tmax10000.txt' u (bin($1)):(1.0/1944) smooth freq w boxes fill transparent pattern 6  lc rgb "#33FFBD"  lw 9 t 'Cyclic'
+
+set origin 1,1
+p 'data/Pearson1_d0.005_tmax10000.txt' u (bin($5)):(1.0/1944) smooth freq w boxes fill transparent pattern 7  lc rgb "#FFBD33" lw 9 t 'Non-cyclic'\
+, 'data/Pearson1_d0.005_tmax10000.txt' u (bin($2)):(1.0/1944) smooth freq w boxes fill transparent pattern 6  lc rgb "#33FFBD"  lw 9 t 'Cyclic'
+
+set origin 2,1
+p 'data/Pearson1_d0.005_tmax10000.txt' u (bin($6)):(1.0/1944) smooth freq w boxes fill transparent pattern 7  lc rgb "#FFBD33" lw 9 t 'Non-cyclic'\
+, 'data/Pearson1_d0.005_tmax10000.txt' u (bin($3)):(1.0/1944) smooth freq w boxes fill transparent pattern 6  lc rgb "#33FFBD"  lw 9 t 'Cyclic'
+
+set origin 0,0
+p 'data/Pearson2_d0.005_tmax10000.txt' u (bin($4)):(1.0/1944) smooth freq w boxes fill transparent pattern 7  lc rgb "#FFBD33" lw 9 t 'Non-cyclic'\
+, 'data/Pearson2_d0.005_tmax10000.txt' u (bin($1)):(1.0/1944) smooth freq w boxes fill transparent pattern 6  lc rgb "#33FFBD"  lw 9 t 'Cyclic'
+
+set origin 1,0
+p 'data/Pearson2_d0.005_tmax10000.txt' u (bin($5)):(1.0/1944) smooth freq w boxes fill transparent pattern 7  lc rgb "#FFBD33" lw 9 t 'Non-cyclic'\
+, 'data/Pearson2_d0.005_tmax10000.txt' u (bin($2)):(1.0/1944) smooth freq w boxes fill transparent pattern 6  lc rgb "#33FFBD"  lw 9 t 'Cyclic'
+
+set origin 2,0
+p 'data/Pearson2_d0.005_tmax10000.txt' u (bin($6)):(1.0/1944) smooth freq w boxes fill transparent pattern 7  lc rgb "#FFBD33" lw 9 t 'Non-cyclic'\
+, 'data/Pearson2_d0.005_tmax10000.txt' u (bin($3)):(1.0/1944) smooth freq w boxes fill transparent pattern 6  lc rgb "#33FFBD"  lw 9 t 'Cyclic'

@@ -10,7 +10,7 @@ import fnmatch
 import sys
 
 def CountFile(dirpath, d):
-	name = "M1000_mu%g_w1_d%g_maxt%d_*.d" % (mu, d, tmax-1) 
+	name = "M1000_mu%g_d%g_maxt%d_*.d" % (mu, d, tmax-1) 
 	return fnmatch.filter(os.listdir(dirpath), name)
 
 
@@ -104,10 +104,10 @@ for i in range(1, len(lines)):
 	 
 """ -------- main ---------- """
 d = 0.005
-tmax = 30+1
+tmax = 10000+1
 mu = 1e-05
 l = 0
-dir = "l%g" % l
+dir = "../Data"
 
 #all averaged samples`
 res = np.zeros([5, tmax])#ensemble averaged time serise of quantity
@@ -131,6 +131,7 @@ for fname in flist:
 	Nsur += flag
 	
 samples = Nsur - samples
+samples[np.where(samples==0)] = 1
 res[0] /= Nsur
 res[1] /= samples
 res[2] /= samples
@@ -145,10 +146,10 @@ print Nsur, samples
 
 
 #--------- write ------------#
-ofp = open("data/ts_d%g_mu%g_t%d.txt" % (d, mu, tmax), 'w')	
-ofp.write("#t, survival_ensemble averaged n, p14, Delta p14, p15, Delta p15, chi\n")
+ofp = open("../Res/ts_d%g_mu%g_t%d.txt" % (d, mu, tmax), 'w')	
+ofp.write("#t, survival_ensemble averaged n, p14, Delta p14, p15, Delta p15, chi\n" )
 for t in range(tmax):
 	chi = 0
 	if res[1][t]+res[3][t] >0:
 		chi = res[1][t]/(res[1][t]+res[3][t])
-	ofp.write("%d %g %g %g %g %g %g\n" % (t, res[0][t], res[1][t], res[2][t], res[3][t], res[4][t], chi ) )
+	ofp.write("%d %g %g %g %g %g %g %d\n" % (t, res[0][t], res[1][t], res[2][t], res[3][t], res[4][t], chi, samples[t] ) )

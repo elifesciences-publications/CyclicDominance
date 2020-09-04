@@ -21,11 +21,11 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 	
-	int M = atoi(argv[1]);
-	double mu = atof(argv[2]);
-	int maxt = atoi(argv[3])+1;
-	int fidx = atoi(argv[4]);
-	double base_d = atof(argv[5]);
+	int M = atoi(argv[1]);		//Population size scale
+	double mu = atof(argv[2]);	//mutation rate per individual
+	int maxt = atoi(argv[3])+1;	//maximum time to simulate (mutantion event time)
+	int fidx = atoi(argv[4]);	//file index number
+	double base_d = atof(argv[5]);	//baseline competition death rate
 	
 
 	//initialize

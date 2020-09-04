@@ -1,0 +1,105 @@
+set t po eps enh color 30
+set size 3,3
+set output "Corr.eps"
+set multiplot
+set style fill  transparent solid 0.35 noborder
+
+set border lw 2
+set tics scale 2 front
+set size 1,1
+
+############the first row
+set yr[:0.2]
+set origin 0,2
+set xlab 'Richness index n' 
+set ylab 'P_{cyc}'
+set xtics 5
+set ytics 0.1
+p './scatter_Pearson_ensemble.txt' u 3:6 w p pt 7 ps 2  lc rgb "#33FFBD" t ''
+
+set origin 1,2
+set xlab 'Shannon index H'
+set xtics 0.5
+p './scatter_Pearson_ensemble.txt' u 4:6 w p pt 7 ps 2 lc rgb "#33FFBD" t ''
+
+set origin 2,2
+set xlab 'Simpson index S'
+set xtics 2
+p './scatter_Pearson_ensemble.txt' u 5:6 w p pt 7 ps 2 lc rgb "#33FFBD" t ''
+
+############the second row
+set yr[:1]
+set origin 0,1
+set xlab 'Richness index n' 
+set ylab 'P_{ncyc}'
+set xtics 5
+set ytics 0.5
+p './scatter_Pearson_ensemble.txt' u 3:7 w p pt 7 ps 2  lc rgb "#FFBD33" t ''
+
+set origin 1,1
+set xlab 'Shannon index H'
+set xtics 0.5
+p './scatter_Pearson_ensemble.txt' u 4:7 w p pt 7 ps 2 lc rgb "#FFBD33" t ''
+
+set origin 2,1
+set xlab 'Simpson index S'
+set xtics 2
+p './scatter_Pearson_ensemble.txt' u 5:7 w p pt 7 ps 2 lc rgb "#FFBD33" t ''
+
+############the thrid row
+set yr[:1]
+set origin 0,0
+set xlab 'Richness index n' 
+set ylab '{/Symbol c}'
+set xtics 5
+set ytics 0.5
+p './scatter_Pearson_ensemble.txt' u 3:10 w p pt 7 ps 2  lc rgb "#32A4F2" t ''
+
+set origin 1,0
+set xlab 'Shannon index H'
+set xtics 0.5
+p './scatter_Pearson_ensemble.txt' u 4:10 w p pt 7 ps 2 lc rgb "#32A4F2" t ''
+
+set origin 2,0
+set xlab 'Simpson index S'
+set xtics 2
+p './scatter_Pearson_ensemble.txt' u 5:10 w p pt 7 ps 2 lc rgb "#32A4F2" t ''
+
+quit
+############the thrid row
+set yr[:0.2]
+set origin 0,1
+set xlab 'Richness index n' 
+set ylab 'P_{cyc}f_{cyc}'
+set xtics 5
+set ytics 0.1
+p './scatter_Pearson_ensemble.txt' u 3:8 w p pt 7 ps 2  lc rgb "#33FFBD" t ''
+
+set origin 1,1
+set xlab 'Shannon index H'
+set xtics 0.5
+p './scatter_Pearson_ensemble.txt' u 4:8 w p pt 7 ps 2 lc rgb "#33FFBD" t ''
+
+set origin 2,1
+set xlab 'Simpson index S'
+set xtics 2
+p './scatter_Pearson_ensemble.txt' u 5:8 w p pt 7 ps 2 lc rgb "#33FFBD" t ''
+
+############the last row
+set yr[:1]
+set origin 0,0
+set xlab 'Richness index n' 
+set ylab 'P_{ncyc}f_{ncyc}'
+set xtics 5
+set ytics 0.5
+p './scatter_Pearson_ensemble.txt' u 3:9 w p pt 7 ps 2  lc rgb "#FFBD33" t ''
+
+set origin 1,0
+set xlab 'Shannon index H'
+set xtics 0.5
+p './scatter_Pearson_ensemble.txt' u 4:9 w p pt 7 ps 2 lc rgb "#FFBD33" t ''
+
+set origin 2,0
+set xlab 'Simpson index S'
+set xtics 2
+p './scatter_Pearson_ensemble.txt' u 5:9 w p pt 7 ps 2 lc rgb "#FFBD33" t ''

@@ -11,10 +11,10 @@ import numpy as np
 import analysis_triad as at
 import matplotlib.pyplot as plt
 
+""" functions """
 def RandomMatricesTriad(n):
 
-	""" sample size """
-	N=500000
+	N=500000 #sample size
 	
 	Result = np.zeros(16)
 	for i in np.arange(N):
@@ -28,7 +28,7 @@ def RandomMatricesTriad(n):
 	return Result
 
 
-""" main code writing to file"""
+""" main """
 res = {}
 for n in range(3, 20):
 	Result = RandomMatricesTriad(n)
