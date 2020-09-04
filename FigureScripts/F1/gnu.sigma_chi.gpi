@@ -5,12 +5,33 @@ set size 1, 1
 set tics scale 2
 set border lw 2.5
 set ytics 0.1 
+<<<<<<< HEAD
+#set xlab 'Standard deviation {/Symbol s}' 
+set xlab 'Fraction of mutational distances F_l'
+set ylab 'Fraction of cyclic dominance {/Symbol \143}' font ",28"
+#{/Symbol s_1}/({/Symbol s_1}+{/Symbol s_2})' 
+#set y2lab 'P' tc lt 2
+set xr [0:1]
+=======
 set xlab 'Standard deviation {/Symbol s}' 
 set ylab 'Freaction of cyclic dominance {/Symbol \143}'
 set xr [-1:51]
+>>>>>>> c66818bc3794729c65364c8176efb6f1bc46034c
 set yr [-0.007:0.207]
 set key b
 set key spacing 1.5
 
 
+<<<<<<< HEAD
+p 'sigma_chi.txt' u ($1/(1+$1)):2 w lp ps 2.5 pt 4 lw 8 lc rgb "#32A4F2" t ''\
+#, 'sigma_chi.txt' u 1:($5/($5+$6)) axes x1y2  w lp ps 2 pt 6 lw 8 t ''\
+#, 0.154 lc rgb "orange" t ''
+#, './control_sigma/sigma_chi.txt' u 1:($5/($5+$6))/5 w lp ps 2 pt 6 lw 8 t 'scaled P'\
+#p './control_sigma/sigma_chi.txt' u 1:2 w lp ps 2 pt 4 lw 8 lc rgb "#555555" t ''
+
+set output 'sigma_chi_logxy.eps'
+set log xy
+rep
+=======
 p 'sigma_chi.txt' u 1:2 w lp ps 2.5 pt 4 lw 8 lc -1 t ''\
+>>>>>>> c66818bc3794729c65364c8176efb6f1bc46034c

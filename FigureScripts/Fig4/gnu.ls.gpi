@@ -33,23 +33,21 @@ set format "%g"
 set bmargin 2.7
 set lmargin 4.5
 set rmargin 4.5
-set yr[0:50]
-set xr[-10:10]
 set ytics 25 font ",30"
 set xtics 5
 set style line 1 lt 1 lc rgb '#FFBD33' 
 set style line 2 lt 1 lc rgb '#33FFBD'
+set key font ",25"
 
 set xlab "Mean of similarities" font ", 30" offset 0,0.35 
-set ylab 'Deviation of similarities' font ", 30" offset 1.3, 0
-#set xlab "~C{.6-}" offset 0,3 
-#set ylab '{/Symbol D}C' offset 1.5, 0
-set key font ",25" samplen 1.5
-p 't15_scatter.txt' u 1:2 w p ls 1 t ''\
-, 't14_scatter.txt' u 1:2 w p ls 2 t ''\
-, './scatter_stat.txt' u ($1==15?$2:1/0):4:($2-$3):($2+$3):($4-$5):($4+$5) w xyerrorbars lw 7 ps 2 pt 6 lc rgb "#CF9928" t 'Non-cyclic'\
-, './scatter_stat.txt' u ($1==14?$2:1/0):4:($2-$3):($2+$3):($4-$5):($4+$5) w xyerrorbars lw 7 ps 2 pt 4 lc rgb "#23B586" t 'Cyclic'\
-, './scatter_stat.txt' u ($1==15?$2:1/0):4:($2-$3):($2+$3):($4-$5):($4+$5) w xyerrorbars lw 1 ps 2 pt 6 lc rgb "#777777" t ''\
-, './scatter_stat.txt' u ($1==14?$2:1/0):4:($2-$3):($2+$3):($4-$5):($4+$5) w xyerrorbars lw 1 ps 2 pt 4 lc rgb "#777777" t ''\
-
-
+set ylab "Standard deviation \nof similarities" font ", 30" offset 0.5, 0
+set xtics 0.05
+set ytics 0.1
+p 't15_traits.txt' u 7:8  every 120 ls 1 t ''\
+, 't14_traits.txt' u 7:8  every 4  ls 2 t ''\
+, 't15_avg.txt' u 13:15:($13-$14):($13+$14):($15-$16):($15+$16) w xyerrorbars lw 7 ps 2 pt 6 lc rgb "#CF9928" t 'Non-cyclic'\
+, 't14_avg.txt' u 13:15:($13-$14):($13+$14):($15-$16):($15+$16) w xyerrorbars lw 7 ps 2 pt 4 lc rgb "#23B586" t 'Cyclic'\
+, 'random_avg.txt' u 13:15:($13-$14):($13+$14):($15-$16):($15+$16) w xyerrorbars lw 7 ps 2 pt 1 lc rgb "#999999" t 'Random'\
+, 't15_avg.txt' u 13:15:($13-$14):($13+$14):($15-$16):($15+$16) w xyerrorbars lw 1 ps 2 pt 4 lc rgb "#777777" t ''\
+, 't14_avg.txt' u 13:15:($13-$14):($13+$14):($15-$16):($15+$16) w xyerrorbars lw 1 ps 2 pt 6 lc rgb "#777777" t ''\
+, 'random_avg.txt' u 13:15:($13-$14):($13+$14):($15-$16):($15+$16) w xyerrorbars lw 1 ps 2 pt 6 lc rgb "#999999" t ''\

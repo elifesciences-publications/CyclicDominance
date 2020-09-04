@@ -1,0 +1,12 @@
+set t po eps enh color 25
+set output "scatter_Fl_chi.eps"
+
+set border lw 2
+set tics scale 2
+set xlab 'Fraction of mutational distances {/Times-Italic F_l}'
+set ylab 'Fraction {/Symbol c}'
+set xtics ("0.0" 0, "0.2" 0.2, "0.4" 0.4, "0.6" 0.6, "0.8" 0.8, "1.0" 1) font ",23"
+set ytics ("0.00" 0, "0.02" 0.02, "0.04" 0.04, "0.06" 0.06, "0.08" 0.08, "0.10" 0.1) font ",23"
+set yr [-0.0025:0.0825]
+set xr [-0.02:1.02]
+p './PDF_genealogy_pattern.txt' u ($1+0.05):($2+$3>0?($2*1365/($2*1365+$3*38075)):1/0) w p ps 3 pt 7 lc rgb "#32A4F2" t ''

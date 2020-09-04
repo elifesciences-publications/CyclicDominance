@@ -20,18 +20,26 @@ set ytic ("10" 100000, "5" 50000, "0" 0 )
 set xtic ("10" 10000, "8" 8000, "6" 6000, "4" 4000, "2" 2000, "0" 0 )
 set key font ",25" 
 set key at 9400, 95000
+<<<<<<< HEAD
+p './l0_mu1e-05_d0.005_tmax10000.txt' u 1:4 w l lw 9  t '{/Symbol a}=5x10^{-6}'\
+, './l0_mu1e-05_d0.01_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=1x10^{-5}'\
+, './l0_mu1e-05_d0.05_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=5x10^{-5}'\
+, './l0_mu1e-05_d0.1_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=1x10^{-4}' \
+, './l0_mu1e-05_d0.5_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=5x10^{-4}' \
+=======
 p './mu1e-05_d0.005_tmax10000.txt' u 1:4 w l lw 9  t '{/Symbol a}=0.005'\
 , './mu1e-05_d0.01_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=0.01'\
 , './mu1e-05_d0.05_tmax10000.txt'  u 1:4 w l lw 9  t '{/Symbol a}=0.05'\
 , './mu1e-05_d0.1_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=0.1' \
 , './mu1e-05_d0.5_tmax10000.txt'   u 1:4 w l lw 9  t '{/Symbol a}=0.5' \
+>>>>>>> c66818bc3794729c65364c8176efb6f1bc46034c
 
 ###########(b)
 reset
 unset key
 set tics scale 3 front
 set border lw 5 
-set ylab "Average diversity {/Symbol \341}s{/Symbol \361}" 
+set ylab "Average diversity {/Symbol \341}n{/Symbol \361}" 
 set xlab 'Time t (10x^3)'
 set size 1,1
 set origin 1,1
@@ -49,7 +57,7 @@ reset
 set border lw 5 
 set tics scale 3 front
 set xr [0:100000]
-set ylab "Average diversity {/Symbol \341}s{/Symbol \361}" 
+set ylab "Average diversity {/Symbol \341}n{/Symbol \361}" 
 set xlab "Average Pop. size {/Symbol \341}N{/Symbol \361} (x10^4)" 
 set xtic ("10" 100000, "8" 80000, "6" 60000, "4" 40000, "2" 20000, "0" 0 )
 set ytics (1, 2, 3, 4, 8, 12)
@@ -64,7 +72,7 @@ set border lw 5
 set tics scale 3 front
 set xr[0:10000]
 set xlab 'Time t (x10^3)'
-set ylab "Average payoffs {/Symbol \341}A_{ij}{/Symbol \361}" 
+set ylab "Average payoffs {/Symbol \341}A_{ij}-A_0{/Symbol \361}" 
 set xtic ("10" 10000, "8" 8000, "6" 6000, "4" 4000, "2" 2000, "0" 0 )
 set size 1,1
 set origin 1,0
@@ -79,19 +87,31 @@ p './avgp_mu1e-05_d0.005.txt' u 1:2 w l lw 9  t '{/Symbol a}=0.005'\
 
 reset
 set border lw 3
-set size 0.47, 0.47
+set size 0.47, 0.43
 set tic scale 1.5
-set origin 1.48, 0.26
+set origin 1.15, 0.23
 set ytics 4 font ",15"
-set xtics font ",15"
+set xtics font ",15" offset 0, 0.4
 set offset 10, 0
 set format x "10^{%L}"
 unset xlab
 unset ylab
 unset key
 set log x
-rep
 
+rep
+reset 
+set border lw 3
+set size 0.5, 0.5
+set origin 1.48, 0.23
+set xtics font ",15" offset 0, 0.5
+set xlab "A_{ij}-{/Symbol \341}A{/Symbol \361}" font ",15" offset 0, 1.5
+set ylab "PDF" offset 4, 0 font ",15"
+set border lw 2
+set xr[-5:5]
+set ytics 0.01 font ",15"
+
+p './pdist_l0_mu1e-05_d0.005.txt' u 1:2 w lp lw 9 t ''\
 
 
 reset 

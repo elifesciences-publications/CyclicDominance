@@ -1,6 +1,6 @@
 set t po eps enh color 30
 set output 'fig3B.eps'
-set ylab "Average frequencies p"
+set ylab "Average proportions {/Times-Italic p}"
 set yr[:0.4]
 set ytics format "10^{%L}" 
 set tics front
@@ -32,6 +32,7 @@ set yr[:0.07]
 set xr[:2500]
 set output 'fig3C.eps'
 set size ratio 0.5
+#set ylab "Fraction of \ncyclic dominance {/Symbol \143}"offset 1, 0
 set ylab "Fraction {/Symbol \143}"offset 1, 0
 set ytics 0.02
 set ytics add ("0.00" 0, "0.02" 0.02, 0.04, 0.06, "" 0.08) font ",25" 
@@ -52,13 +53,29 @@ set ylab "Average values" offset -0.8, 0
 set yr [0:11]
 set ytic 2
 set mytics 2
+<<<<<<< HEAD
+#set arrow 1 from 100, 0 to 100, 11 nohead dt 3 lc -1
+#set arrow 2 from 600, 0 to 600, 11 nohead dt 3 lc -1 front
+set label 1 "Diversity {/Symbol \341}n{/Symbol \361}" at 200, 10 font ",25" tc rgb "#999999" 
+set label 2 "Population size {/Symbol \341}N{/Symbol \361} (x10^4)" at 1000, 8  font ",25" tc rgb "#404040"
+=======
 set label 1 "Diversity {/Symbol \341}S{/Symbol \361}" at 200, 10 font ",25" tc rgb "#797979" 
 set label 2 "Population size {/Symbol \341}N{/Symbol \361} (x10^4)" at 1000, 8  font ",25" tc rgb "#464C63"
+>>>>>>> c66818bc3794729c65364c8176efb6f1bc46034c
 set lmargin 8
 set rmargin 3
 #set y2lab '
 hist(x) = (100<x&& x<607)?11:1/0
 
+<<<<<<< HEAD
+p './l0_mu1e-05_d0.005_tmax10000.txt' u 1:8 w l lw 8 lc rgb "#999999" t ''\
+, './l0_mu1e-05_d0.005_tmax10000.txt' u 1:($4/10000) w l lw 8 lc rgb "#404040" t ''\
+#, 3 t '' lt -1 dt 3 
+#p './l0_mu1e-05_d0.005_tmax10000.txt' u 1:8:9 w errorbars lw 2 lc rgb "#797979" t ''\
+#, './l0_mu1e-05_d0.005_tmax10000.txt' u 1:($4/10000):($5/10000) w errorbars lw 2 lc rgb "#464C63" t ''\
+#p hist(x) w filledcurves x1 lc rgb "#EAEAEA" t ''\
+=======
 p './mu1e-05_d0.005_tmax10000.txt' u 1:8 w l lw 8 lc rgb "#797979" t ''\
 , './mu1e-05_d0.005_tmax10000.txt' u 1:($4/10000) w l lw 8 lc rgb "#464C63" t ''\
+>>>>>>> c66818bc3794729c65364c8176efb6f1bc46034c
 
